@@ -13,7 +13,8 @@ export type Role =
   | 'finance'
   | 'librarian'
   | 'exam-coordinator'
-  | 'counselor';
+  | 'counselor'
+  | 'head';
 
 export interface User {
   id: string;

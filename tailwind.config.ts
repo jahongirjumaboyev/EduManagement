@@ -13,6 +13,7 @@ export default {
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui'],
+        inter: ['Inter', 'sans-serif'],
       },
       spacing: {
         // Named spacing tokens — replace values with Figma tokens when ready.

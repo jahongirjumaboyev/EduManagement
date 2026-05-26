@@ -21,6 +21,10 @@ import FinanceDashboard from '@/pages/finance/FinanceDashboard';
 import LibrarianDashboard from '@/pages/librarian/LibrarianDashboard';
 import ExamCoordinatorDashboard from '@/pages/exam-coordinator/ExamCoordinatorDashboard';
 import CounselorDashboard from '@/pages/counselor/CounselorDashboard';
+import DarsJadvali from '@/pages/rector/DarsJadvali';
+import RoyxatgaOlish from '@/pages/rector/RoyxatgaOlish';
+import Kursantlar from '@/pages/rector/Kursantlar';
+import Tinglovchilar from '@/pages/rector/Tinglovchilar';
 
 export const router = createBrowserRouter([
   { path: '/', element: <LandingPage /> },
@@ -102,6 +106,24 @@ export const router = createBrowserRouter([
     path: '/counselor',
     element: <RoleGuard allowedRoles={['counselor']} />,
     children: [{ index: true, element: <CounselorDashboard /> }],
+  },
+
+  {
+    path: '/kadr',
+    element: <RoleGuard allowedRoles={['head']} />,
+    children: [
+      { index: true, element: <Navigate to="bosh-sahifa" replace /> },
+      { path: 'bosh-sahifa', element: <DarsJadvali /> },
+      { path: 'royxatga-olish', element: <RoyxatgaOlish /> },
+    ],
+  },
+  {
+    path: '/rahbariyat/kursant-tinglovchilar',
+    element: <RoleGuard allowedRoles={['head']} />,
+    children: [
+      { path: 'kursantlar', element: <Kursantlar /> },
+      { path: 'tinglovchilar', element: <Tinglovchilar /> },
+    ],
   },
 
   { path: '*', element: <NotFoundPage /> },
