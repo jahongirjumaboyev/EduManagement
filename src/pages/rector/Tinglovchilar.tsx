@@ -136,14 +136,21 @@ const MENU_ITEMS: SidebarItem[] = [
   { icon: <AppstoreOutlined />, label: UZ.darsJadvali.boshSahifa,    path: '/kadr/bosh-sahifa' },
   { icon: <UserAddOutlined />,  label: UZ.darsJadvali.royxatgaOlish, path: '/kadr/royxatga-olish' },
   { icon: <UserOutlined />,     label: UZ.darsJadvali.profil,         path: '' },
-  { icon: <FileTextOutlined />, label: UZ.darsJadvali.hisobotlar,     path: '', hasArrow: true },
+  {
+    icon: <FileTextOutlined />, label: UZ.darsJadvali.hisobotlar, path: '',
+    subItems: [
+      { label: UZ.hisobotlar.sutkalikNaryadlar, path: '/kadr/hisobotlar/sutkalik-naryadlar' },
+      { label: UZ.hisobotlar.institutChiqish,   path: '/kadr/hisobotlar/institut-chiqish' },
+      { label: UZ.hisobotlar.kasalKursantlar,   path: '/kadr/hisobotlar/kasal-kursantlar' },
+    ],
+  },
   {
     icon: <TeamOutlined />,
     label: UZ.darsJadvali.kursantlar,
     path: '',
     subItems: [
-      { label: UZ.kursantlar.menuLabel,         path: '/rahbariyat/kursant-tinglovchilar/kursantlar' },
-      { label: UZ.kursantlar.tinglovchilarLabel, path: '/rahbariyat/kursant-tinglovchilar/tinglovchilar', active: true },
+      { label: UZ.kursantlar.menuLabel,         path: '/kadr/kursant-tinglovchilar/kursantlar' },
+      { label: UZ.kursantlar.tinglovchilarLabel, path: '/kadr/kursant-tinglovchilar/tinglovchilar', active: true },
     ],
   },
   { icon: <MessageOutlined />,       label: UZ.darsJadvali.xabarlar,   path: '' },
@@ -157,6 +164,7 @@ export default function Tinglovchilar() {
   const navigate = useNavigate();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [hisobotlarOpen, setHisobotlarOpen] = useState(false);
   const [kursantlarOpen, setKursantlarOpen] = useState(true);
   const [page, setPage] = useState(1);
 
@@ -301,14 +309,18 @@ export default function Tinglovchilar() {
             <div key={item.label}>
               {item.subItems ? (
                 <div
-                  onClick={() => setKursantlarOpen(o => !o)}
+                  onClick={() => {
+                    if (item.label === UZ.darsJadvali.hisobotlar) setHisobotlarOpen(o => !o);
+                    else setKursantlarOpen(o => !o);
+                  }}
                   className={`flex items-center justify-between px-3 py-2.5 rounded-lg cursor-pointer ${item.subItems.some(s => s.active) ? 'bg-[#4680FF] text-white' : 'text-gray-600 hover:bg-gray-50'}`}
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-base">{item.icon}</span>
                     <span className="text-sm font-medium">{item.label}</span>
                   </div>
-                  {kursantlarOpen ? <LeftOutlined className="text-xs" /> : <RightOutlined className="text-xs" />}
+                  {(item.label === UZ.darsJadvali.hisobotlar ? hisobotlarOpen : kursantlarOpen)
+                    ? <LeftOutlined className="text-xs" /> : <RightOutlined className="text-xs" />}
                 </div>
               ) : (
                 <div
@@ -324,7 +336,7 @@ export default function Tinglovchilar() {
                   )}
                 </div>
               )}
-              {item.subItems && kursantlarOpen && (
+              {item.subItems && (item.label === UZ.darsJadvali.hisobotlar ? hisobotlarOpen : kursantlarOpen) && (
                 <div className="mt-1 mx-3 rounded-[5px] border border-[#4680FF] overflow-hidden">
                   {item.subItems.map(sub => (
                     <div

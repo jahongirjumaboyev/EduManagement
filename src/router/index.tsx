@@ -25,6 +25,9 @@ import DarsJadvali from '@/pages/rector/DarsJadvali';
 import RoyxatgaOlish from '@/pages/rector/RoyxatgaOlish';
 import Kursantlar from '@/pages/rector/Kursantlar';
 import Tinglovchilar from '@/pages/rector/Tinglovchilar';
+import SutkalikNaryadlar from '@/pages/rector/hisobotlar/SutkalikNaryadlar';
+import InstitutChiqish from '@/pages/rector/hisobotlar/InstitutChiqish';
+import KasalKursantlar from '@/pages/rector/hisobotlar/KasalKursantlar';
 
 export const router = createBrowserRouter([
   { path: '/', element: <LandingPage /> },
@@ -115,10 +118,13 @@ export const router = createBrowserRouter([
       { index: true, element: <Navigate to="bosh-sahifa" replace /> },
       { path: 'bosh-sahifa', element: <DarsJadvali /> },
       { path: 'royxatga-olish', element: <RoyxatgaOlish /> },
+      { path: 'hisobotlar/sutkalik-naryadlar', element: <SutkalikNaryadlar /> },
+      { path: 'hisobotlar/institut-chiqish',   element: <InstitutChiqish /> },
+      { path: 'hisobotlar/kasal-kursantlar',   element: <KasalKursantlar /> },
     ],
   },
   {
-    path: '/rahbariyat/kursant-tinglovchilar',
+    path: '/kadr/kursant-tinglovchilar',
     element: <RoleGuard allowedRoles={['head']} />,
     children: [
       { path: 'kursantlar', element: <Kursantlar /> },
